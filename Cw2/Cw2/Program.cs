@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text.Json;
 using System.Xml.Serialization;
 
 namespace Cw2
@@ -10,15 +11,18 @@ namespace Cw2
         static void Main(string[] args)
         {
             string type;
+            string destPath;
             DataConverter dataConverter;
             if (args.Length == 3)
             {
                 type = args[2];
-                dataConverter = new DataConverter(args[0],args[1]);
+                dataConverter = new DataConverter(args[0]);
+                destPath = args[1];
             }
             else
             {
                 type = "xml";
+                destPath = "data.xml";
                 dataConverter = new DataConverter();
             }
             
@@ -36,7 +40,7 @@ namespace Cw2
                         Students = dataConverter.getDataFromFile()
 
                     };
-                    FileStream writer = new FileStream(@"data.xml", FileMode.Create);
+                    FileStream writer = new FileStream(destPath, FileMode.Create);
 
                     XmlSerializer serializer = new XmlSerializer(typeof(University),
                                                new XmlRootAttribute("uczelnia"));
@@ -44,7 +48,15 @@ namespace Cw2
                 }
                 if(type.Equals("json"))
                 {
+                    var university = new University
+                    {
+                        CreatedAt = DateTime.Now + "",
+                        Author = "Piotr Miluszkiewicz",
+                        Students = dataConverter.getDataFromFile()
 
+                    };
+                    var jsonString = JsonSerializer.Serialize(university);
+                    File.WriteAllText(destPath, jsonString);
                 }
 
 

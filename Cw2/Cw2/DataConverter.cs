@@ -9,14 +9,13 @@ namespace Cw2
     {
         string logPath;
         string dataPath;
-        string destPath;
-        public DataConverter(string dataPath, string destPath)
+        public DataConverter(string dataPath)
         {
             this.logPath = "log.txt";
             this.dataPath = dataPath;
-            this.destPath = destPath;
+
         }
-        public DataConverter() : this("dane.csv", "result.xml")
+        public DataConverter() : this("dane.csv")
         {
         }
 
