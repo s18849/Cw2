@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Xml.Serialization;
 
 namespace Cw2
 {
@@ -8,18 +10,39 @@ namespace Cw2
         static void Main(string[] args)
         {
             DataConverter dataConverter = new DataConverter();
-
+            string type = "xml";
+            
             try
             {
-                foreach(Student s in dataConverter.getDataFromFile())
+
+                if (type.Equals("xml"))
                 {
-                    Console.WriteLine(s);
+                    var university = new University
+                    {
+                        CreatedAt = DateTime.Now + "",
+                        Author = "Piotr Miluszkiewicz",
+                        Students = dataConverter.getDataFromFile()
+
+                    };
+
+                    FileStream writer = new FileStream(@"data.xml", FileMode.Create);
+
+                    XmlSerializer serializer = new XmlSerializer(typeof(University),
+                                               new XmlRootAttribute("uczelnia"));
+                
+                                               
+
+
+                    serializer.Serialize(writer, university);
                 }
                 
-                   
-                
+ 
+
+
+
+
             }
-            catch(FileNotFoundException e)
+            catch (FileNotFoundException e)
             {
                 Console.WriteLine(e.Message);
             }

@@ -59,16 +59,18 @@ namespace Cw2
                                         break;
                                     }
                                 }
-                                var student = new Student
-                                {
-                                    Name = studentData[0],
-                                    Lastname = studentData[1],
-                                    Study = studentData[2],
-                                    StudyType = studentData[3],
-                                    Index = int.Parse(studentData[4]),
-                                    Birthday = studentData[5],
-                                    MothersName = studentData[7],
-                                    FathersName = studentData[8]
+                            var student = new Student
+                            {
+                                Name = studentData[0],
+                                Lastname = studentData[1],
+                                Study = studentData[2],
+                                StudyType = studentData[3],
+                                Index = "s" + studentData[4],
+                                Birthday = studentData[5],
+                                MothersName = studentData[7],
+                                FathersName = studentData[8],
+                                
+                               
                                 };
                             bool exist = false;
                            foreach(Student s in studentList)
