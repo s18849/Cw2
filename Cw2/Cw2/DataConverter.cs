@@ -24,6 +24,7 @@ namespace Cw2
         {
             using (StreamWriter sw = File.AppendText(logPath))
                 sw.WriteLine(DateTime.Now + " " + message);
+         
 
         }
         public List<Student> getDataFromFile()
@@ -43,53 +44,65 @@ namespace Cw2
                     using (var stream = new StreamReader(fi.OpenRead()))
                     {
                         string line = null;
-                        
+                    
                         while ((line = stream.ReadLine()) != null)
                         {
 
                             string[] studentData = line.Split(',');
-    
-                            if (studentData.Length == 9)
+
+                        if (studentData.Length == 9)
+                        {
+                            bool correctData = true;
+                            for (int i = 0; i < studentData.Length; i++)
                             {
-                                for (int i = 0; i < studentData.Length; i++)
+                                if (studentData[i].Equals(""))
                                 {
-                                    if (studentData[i] == null)
-                                    {
-                                        addLog(line);
-                                        break;
-                                    }
+                                    addLog(line);
+                                    correctData = false;
+                                    break;
                                 }
-                            var student = new Student
-                            {
-                                Name = studentData[0],
-                                Lastname = studentData[1],
-                                Study = studentData[2],
-                                StudyType = studentData[3],
-                                Index = "s" + studentData[4],
-                                Birthday = studentData[5],
-                                MothersName = studentData[7],
-                                FathersName = studentData[8],
-                                
-                               
-                                };
-                            bool exist = false;
-                           foreach(Student s in studentList)
-                            {
-                                if (s.Equals(student))
+                                if (studentData[i] is null)
                                 {
-                                    exist = true;
+                                    correctData = false;
+                                    addLog(line);
+                                    break;
                                 }
                             }
+                            if (correctData)
+                            {
+                                var student = new Student
+                                {
+                                    Name = studentData[0],
+                                    Lastname = studentData[1],
+                                    Study = studentData[2],
+                                    StudyType = studentData[3],
+                                    Index = "s" + studentData[4],
+                                    Birthday = studentData[5],
+                                    MothersName = studentData[7],
+                                    FathersName = studentData[8],
+
+
+                                };
+                                bool exist = false;
+                                foreach (Student s in studentList)
+                                {
+                                    if (s.Equals(student))
+                                    {
+                                        exist = true;
+                                    }
+                                }
                                 if (!exist)
                                 {
                                     studentList.Add(student);
                                 }
-                                
                             }
-                            else
-                            {
-                                addLog(line);
-                            }
+                            
+
+                        }
+                        else
+                        {
+                            addLog(line);
+                        }
 
 
                            

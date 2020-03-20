@@ -9,8 +9,20 @@ namespace Cw2
     {
         static void Main(string[] args)
         {
-            DataConverter dataConverter = new DataConverter();
-            string type = "xml";
+            string type;
+            DataConverter dataConverter;
+            if (args.Length == 3)
+            {
+                type = args[2];
+                dataConverter = new DataConverter(args[0],args[1]);
+            }
+            else
+            {
+                type = "xml";
+                dataConverter = new DataConverter();
+            }
+            
+            
             
             try
             {
@@ -24,20 +36,16 @@ namespace Cw2
                         Students = dataConverter.getDataFromFile()
 
                     };
-
                     FileStream writer = new FileStream(@"data.xml", FileMode.Create);
 
                     XmlSerializer serializer = new XmlSerializer(typeof(University),
                                                new XmlRootAttribute("uczelnia"));
-                
-                                               
-
-
                     serializer.Serialize(writer, university);
                 }
-                
- 
+                if(type.Equals("json"))
+                {
 
+                }
 
 
 
