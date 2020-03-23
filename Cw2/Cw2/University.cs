@@ -7,11 +7,14 @@ namespace Cw2
 {
     public class University
     {
+       
         public List<Student> Students { get; set; }
         [XmlAttribute("CreatedAt")]
         public string CreatedAt { get; set; }
         [XmlAttribute("Author")]
         public string Author { get; set; }
-        
+        public List<ActiveStudies> ActiveStudies { get; set; }
+
+
     }
 }

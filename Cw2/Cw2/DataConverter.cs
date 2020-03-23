@@ -9,10 +9,14 @@ namespace Cw2
     {
         string logPath;
         string dataPath;
+        List<ActiveStudies> activeStudies;
+
+       
         public DataConverter(string dataPath)
         {
             this.logPath = "log.txt";
             this.dataPath = dataPath;
+            activeStudies = new List<ActiveStudies>();
 
         }
         public DataConverter() : this("dane.csv")
@@ -82,6 +86,7 @@ namespace Cw2
 
 
                                 };
+                                
                                 bool exist = false;
                                 foreach (Student s in studentList)
                                 {
@@ -92,6 +97,30 @@ namespace Cw2
                                 }
                                 if (!exist)
                                 {
+                                    bool studyExist = false;
+                                    foreach (var s in activeStudies)
+                                    {
+                                        
+
+                                        if ((s.name).Equals(studentData[2]))
+                                        {
+                                            
+                                            studyExist = true;
+                                            s.numberOfStudents++;
+                                        }
+                                    }
+                                    if (!studyExist)
+                                    {
+                                        var newStudy = new ActiveStudies
+                                        {
+                                            name = studentData[2],
+                                            numberOfStudents = 1
+                                        
+                                    };
+                                        
+                                        activeStudies.Add(newStudy);
+                                    }
+
                                     studentList.Add(student);
                                 }
                             }
@@ -110,6 +139,12 @@ namespace Cw2
                 
             }
             return studentList;
+
+        }
+        public List<ActiveStudies> GetActiveStudies()
+        {
+            return activeStudies;
+            
 
         }
         

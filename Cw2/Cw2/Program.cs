@@ -37,7 +37,8 @@ namespace Cw2
                     {
                         CreatedAt = DateTime.Now + "",
                         Author = "Piotr Miluszkiewicz",
-                        Students = dataConverter.getDataFromFile()
+                        Students = dataConverter.getDataFromFile(),
+                        ActiveStudies = dataConverter.GetActiveStudies()
 
                     };
                     FileStream writer = new FileStream(destPath, FileMode.Create);
@@ -52,12 +53,15 @@ namespace Cw2
                     {
                         CreatedAt = DateTime.Now + "",
                         Author = "Piotr Miluszkiewicz",
-                        Students = dataConverter.getDataFromFile()
+                        Students = dataConverter.getDataFromFile(),
+                        ActiveStudies = dataConverter.GetActiveStudies()
+                        
 
                     };
                     var jsonString = JsonSerializer.Serialize(university);
                     File.WriteAllText(destPath, jsonString);
                 }
+                
 
 
 
